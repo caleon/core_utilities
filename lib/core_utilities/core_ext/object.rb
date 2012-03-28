@@ -12,8 +12,10 @@ class Object
     self && yield(self)
   end
   
-  # Convenience methods for a more idiomatic code than [ "users", "purchases" ].include?(controller_name) so that
-  # the same can now be written as controller_name.is_included_in?('users', 'purchases')
+  # Convenience methods for a more idiomatic code than:
+  #   ["users", "purchases"].include?(controller_name)
+  # so that the same can now be written as
+  #   controller_name.is_included_in?('users', 'purchases')
   def is_included_in?(*others)
     others.flatten_splat.include?(self)
   end

@@ -27,7 +27,7 @@ class Array
   def method_missing(method_sym, *arguments, &block)
     return super unless method_sym =~ /^#{%w(arg(?:ument)?s opt(?:ion)?s).zip(Array.new(2, "(?:_with_([a-z0-9]+(?:[a-z0-9]|_(?![_=\\b]))*?))?")).map(&:join).join('_and_')}!$/
     args_and_opts.tap do |argopts|
-      [ $1, $2 ].each_with_index do |meth, i|
+      [$1, $2].each_with_index do |meth, i|
         next unless meth.significant?
         params = (that_meth = (obj = argopts[-i]).method(meth.intern)).parameters
         argopts[-i] = (meth && obj.if?([ :respond_to?, meth.intern ]).send(*(i == 0 ? meth.intern : [ meth.intern, *arguments.constrained_by_archetype_and_method(obj, meth) ])))
